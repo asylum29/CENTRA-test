@@ -24,7 +24,7 @@
                     {{ include('event/_delete_form.html.twig') }}
                 </div>
                 <div class="text-secondary">
-                    Дата публикации: {{ event.createdAt ? event.createdAt|date('H:i, Y-m-d') : '' }}
+                    Дата публикации: {{ event.createdAt ? event.createdAt|date('H:i, d-m-Y') : '' }}
                 </div>
                 <div>{{ event.content }}</div>
                 <div>
