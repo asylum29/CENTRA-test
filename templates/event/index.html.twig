@@ -11,6 +11,14 @@
         {% endif %}
     </h1>
 
+    <a class="btn btn-primary" href="{{ path('event_new', {'returnUrl': returnUrl}) }}">Создать новость</a>
+    <div class="float-right">
+        {% if pager.getnbpages > 1 %}
+            {{ pagerfanta(pager, 'my_view', { 'omitFirstPage': true }) }}
+        {% endif %}
+    </div>
+
+    <hr />
     {% for event in events %}
         <div class="row container">
             <div class="event-image-background text-center">
@@ -43,10 +51,10 @@
         <hr />
     {% else %}
         <div class="mt-4 mb-4">новости не найдены</div>
+        <hr />
     {% endfor %}
 
     <a class="btn btn-primary" href="{{ path('event_new', {'returnUrl': returnUrl}) }}">Создать новость</a>
-
     <div class="float-right">
         {% if pager.getnbpages > 1 %}
             {{ pagerfanta(pager, 'my_view', { 'omitFirstPage': true }) }}
