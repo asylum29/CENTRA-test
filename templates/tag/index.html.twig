@@ -17,7 +17,9 @@
             <tr>
                 <td>
                     <span class="glyphicon glyphicon-tag mr-1" aria-hidden="true"></span>
-                    {{ tag.name }}
+                    <a href="{{ path('event_index', {'tag': tag.name}) }}">
+                        {{ tag.name }}
+                    </a>
                 </td>
                 <td>{{ include('tag/_delete_form.html.twig') }}</td>
             </tr>

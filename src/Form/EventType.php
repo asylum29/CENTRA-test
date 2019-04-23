@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class EventType extends AbstractType
 {
@@ -30,7 +30,7 @@ class EventType extends AbstractType
                     'required' => true,
                     'attr'     => ['rows' => '5'],
                 ])
-            ->add('imageFile', VichFileType::class,
+            ->add('imageFile', VichImageType::class,
                 [
                     'label'    => 'Изображение новости',
                     'required' => false,

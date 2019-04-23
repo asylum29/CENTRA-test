@@ -19,7 +19,10 @@ class TagType extends AbstractType
                     'label'    => 'Название тега',
                     'help'     => 'Пример формата тега: #названиетега#',
                     'required' => true,
-                    'attr'     => ['autocomplete' => 'off'],
+                    'attr'     => [
+                        'autocomplete' => 'off',
+                        'pattern'      => '^#[A-zА-я0-9]{4,}#$',
+                    ],
                 ])
         ;
     }
