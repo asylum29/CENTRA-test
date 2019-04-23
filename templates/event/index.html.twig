@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список новостей{% endblock %}
+
+{% block body %}
+    <h1>
+        Список новостей
+        {% if tag is not empty %}
+            ({{ tag }})
+            <a class="btn btn-sm btn-light" href="{{ path('event_index') }}">Очистить фильтр</a>
+        {% endif %}
+    </h1>
+
+    {% for event in events %}
+        <div class="row container">
+            <div class="event-image-background text-center">
+                {% if event.imageName is not empty %}
+                    <img class="event-image" src="{{ vich_uploader_asset(event, 'imageFile') }}"/>
+                {% endif %}
+            </div>
+            <div class="col">
+                <div class="h5 mb-0">
+                    {{ event.title }}
+                    {{ include('event/_delete_form.html.twig') }}
+                </div>
+                <div class="text-secondary">
+                    Дата публикации: {{ event.createdAt ? event.createdAt|date('H:i, Y-m-d') : '' }}
+                </div>
+                <div>{{ event.content }}</div>
+                <div>
+                    {% if event.tags|length > 0 %}
+                        <span class="glyphicon glyphicon-tags mr-1 text-secondary" aria-hidden="true"></span>
+                        {% for tag in event.tags %}
+                            <a class="badge badge-info" href="{{ path('event_index', {'tag': tag.name}) }}">
+                                {{ tag.name }}
+                            </a>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="mt-1 text-right">Автор: <a href="javascript:void(0);">пользователь</a></div>
+            </div>
+        </div>
+        <hr />
+    {% else %}
+        <div class="mt-4 mb-4">новости не найдены</div>
+    {% endfor %}
+
+    <a class="btn btn-primary" href="{{ path('event_new', {'returnUrl': returnUrl}) }}">Создать новость</a>
+
+    <div class="float-right">
+        {% if pager.getnbpages > 1 %}
+            {{ pagerfanta(pager, 'my_view', { 'omitFirstPage': true }) }}
+        {% endif %}
+    </div>
+{% endblock %}

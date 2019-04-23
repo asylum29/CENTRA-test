@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="hidden" name="returnUrl" value="{{ returnUrl }}">
+    <button class="btn btn-primary">{{ button_label|default('Создать новость') }}</button>
+    <a class="btn btn-secondary" href="{{ returnUrl }}">Отмена</a>
+{{ form_end(form) }}

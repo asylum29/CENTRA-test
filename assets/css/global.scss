@@ -1,0 +1,16 @@
+@import "~bootstrap/scss/functions";
+
+$custom-file-label-content: "Обзор";
+
+$custom-file-text: (
+        en: $custom-file-label-content
+) !default;
+
+@import "~bootstrap/scss/bootstrap";
+@import "~glyphicons-only-bootstrap/css/bootstrap.css";
+
+.custom-file-label {
+  &::after {
+    content: $custom-file-label-content;
+  }
+}
