@@ -6,7 +6,7 @@
     <h1>
         Список новостей
         {% if tag is not empty %}
-            ({{ tag }})
+            ({{ tag.name }})
             <a class="btn btn-sm btn-light" href="{{ path('event_index') }}">Очистить фильтр</a>
         {% endif %}
     </h1>
@@ -39,7 +39,7 @@
                     {% if event.tags|length > 0 %}
                         <span class="glyphicon glyphicon-tags mr-1 text-secondary" aria-hidden="true"></span>
                         {% for tag in event.tags %}
-                            <a class="badge badge-info" href="{{ path('event_index', {'tag': tag.name}) }}">
+                            <a class="badge badge-info" href="{{ path('event_index', {'tag': tag.id}) }}">
                                 {{ tag.name }}
                             </a>
                         {% endfor %}

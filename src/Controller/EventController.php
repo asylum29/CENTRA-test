@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Repository\TagRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,21 +23,22 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
-    public function index(Request $request, EventRepository $eventRepository): Response
+    public function index(Request $request, TagRepository $tagRepository, EventRepository $eventRepository): Response
     {
         $page = $request->get('page', 1);
-        $tagName = $request->get('tag', '');
+        $tagId = $request->get('tag', '');
 
-        $queryBuilder  = $eventRepository
+        $queryBuilder = $eventRepository
             ->createQueryBuilder('e')
             ->orderBy('e.createdAt', 'DESC');
 
-        $query = empty($tagName) ?
+        $tag = $tagRepository->find($tagId);
+        $query = empty($tag) ?
             $queryBuilder->getQuery() :
             $queryBuilder
                 ->join('e.tags', 't')
-                ->andWhere('t.name = :tagName')
-                ->setParameter('tagName', $tagName)
+                ->andWhere('t.id = :tagId')
+                ->setParameter('tagId', $tagId)
                 ->getQuery();
 
         $adapter = new DoctrineORMAdapter($query);
@@ -50,12 +52,12 @@ class EventController extends AbstractController
             ->setFirstResult(($page - 1) * self::EVENTS_PER_PAGE)
             ->setMaxResults(self::EVENTS_PER_PAGE);
 
-        $returnUrl = $this->generateUrl('event_index', [ 'tag' => $tagName, 'page' => $page ]);
+        $returnUrl = $this->generateUrl('event_index', [ 'tag' => $tagId, 'page' => $page ]);
 
         return $this->render('event/index.html.twig', [
             'events'    => $query->getResult(),
             'pager'     => $pager,
-            'tag'       => $tagName,
+            'tag'       => $tag,
             'returnUrl' => $returnUrl,
         ]);
     }

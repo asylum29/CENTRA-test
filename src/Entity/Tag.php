@@ -25,7 +25,7 @@ class Tag
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\Regex("/^#[A-zА-я0-9]{4,}#$/u")
      * @Assert\Length(
-     *      max = 20,
+     *      max = 50,
      *      maxMessage = "Название тега не должно превышать {{ limit }} символов."
      * )
      */
