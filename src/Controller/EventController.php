@@ -26,13 +26,13 @@ class EventController extends AbstractController
     public function index(Request $request, TagRepository $tagRepository, EventRepository $eventRepository): Response
     {
         $page = $request->get('page', 1);
-        $tagId = $request->get('tag', '');
+        $tagId = $request->get('tag', 0);
 
         $queryBuilder = $eventRepository
             ->createQueryBuilder('e')
             ->orderBy('e.createdAt', 'DESC');
 
-        $tag = $tagRepository->find($tagId);
+        $tag = empty($tagId) ? null : $tagRepository->find($tagId);
         $query = empty($tag) ?
             $queryBuilder->getQuery() :
             $queryBuilder
