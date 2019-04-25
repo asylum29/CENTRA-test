@@ -24,11 +24,19 @@ class Event
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Заголовок новости не должен превышать {{ limit }} символов."
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=10000)
+     * @Assert\Length(
+     *      max = 10000,
+     *      maxMessage = "Текст новости не должен превышать {{ limit }} символов."
+     * )
      */
     private $content;
 
